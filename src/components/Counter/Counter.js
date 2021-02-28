@@ -19,25 +19,28 @@ class Counter extends React.Component {
   };
 
   HandleImcrement = event => {
-    console.log('event', event);
-    console.log('event.target', event.target);
-    console.log('event.type', event.type);
+    // console.log('event', event);
+    // console.log('event.target', event.target);
+    // console.log('event.type', event.type);
 
-    const { target } = event;
-    setTimeout(() => {
-      console.log('for async use local variable', target);
-    }, 1000);
+    // const { target } = event;
+    // setTimeout(() => {
+    //   console.log('for async use local variable', target);
+    // }, 1000);
 
     // простая замена значения ( объект )
-    this.setState({
-      value: 1,
+    // this.setState({
+    //   value: 1,
+    // });
+    this.setState(prevState => {
+      return { value: prevState.value + 1 };
     });
   };
   HandleDecrement = () => {
     // console.log(this);
     // изменение состояния отталкиваясь от предыдущего значения ( функция )
     this.setState(prevState => {
-      console.log(prevState);
+      // console.log(prevState);
       return { value: prevState.value - 1 };
     });
   };

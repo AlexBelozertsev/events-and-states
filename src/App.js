@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import Container from './components/Container/Container';
-import Counter from './components/Counter/Counter';
-import Dropdown from './components/Dropdown/Dropdown';
-import ColorPicker from './components/ColorPicker/ColorPicker';
+import Container from './components/Container';
+import Counter from './components/Counter';
+import Dropdown from './components/Dropdown';
+import ColorPicker from './components/ColorPicker';
+import TodoList from './components/TodoList';
+import initialTodos from './todos.json';
 
 const colorPickerOptions = [
   { label: 'red', color: '#F44336' },
@@ -14,14 +16,28 @@ const colorPickerOptions = [
   { label: 'indigo', color: '#3F51B5' },
 ];
 
-function App() {
-  return (
-    <Container>
-      <Counter initialValue={10} />
-      <Dropdown />
-      <ColorPicker options={colorPickerOptions} />
-    </Container>
-  );
+class App extends Component {
+  state = {
+    todos: initialTodos,
+  };
+
+  deleteTodo = todoId => {
+    this.setState(prevState => ({
+      todos: prevState.todos.filter(todo => todo.id !== todoId),
+    }));
+  };
+
+  render() {
+    const { todos } = this.state;
+    return (
+      <Container>
+        <Counter initialValue={10} />
+        <Dropdown />
+        <ColorPicker options={colorPickerOptions} />
+        <TodoList todos={todos} onDeliteTodo={this.deleteTodo} />
+      </Container>
+    );
+  }
 }
 
 export default App;
