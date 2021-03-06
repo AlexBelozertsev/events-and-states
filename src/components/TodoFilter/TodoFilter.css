@@ -1,0 +1,15 @@
+.TodoFilter {
+  display: flex;
+  width: 400px;
+  margin: 40px auto 0px;
+  padding: 20px 11px;
+  outline: 1px solid black;
+}
+
+.TodoFilter input {
+  font-size: 20px;
+  margin-left: 8px;
+  border: 1px solid teal;
+  outline: none;
+  border-radius: 5px;
+}

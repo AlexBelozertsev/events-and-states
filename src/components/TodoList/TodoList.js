@@ -1,7 +1,8 @@
 import React from 'react';
 import './TodoList.css';
+import classNames from 'classnames'; // пакет для составления динамических классов в компоненте
 
-const TodoList = ({ todos, onDeliteTodo }) => {
+const TodoList = ({ todos, onDeliteTodo, onToggleCompleted }) => {
   const completedTodos = todos.reduce(
     (total, todo) => (todo.completed ? total + 1 : total),
     0,
@@ -9,22 +10,30 @@ const TodoList = ({ todos, onDeliteTodo }) => {
   return (
     <>
       <ul className="TodoList">
-        {todos.map(({ id, text }) => (
-          <li key={id} className="TodoList__item">
+        {todos.map(({ id, text, completed }) => (
+          <li
+            key={id}
+            className={classNames('item', { item__completed: completed })}
+          >
+            <input
+              type="checkbox"
+              checked={completed}
+              onChange={() => onToggleCompleted(id)}
+            />
             {text}
-            <bottom
-              type="bottom"
-              className="TodoList__bottom"
+            <button
+              type="button"
+              className="TodoList__button"
               onClick={() => onDeliteTodo(id)}
             >
               X
-            </bottom>
+            </button>
           </li>
         ))}
       </ul>
-      <div>
-        <p>Общее количество: {todos.length}</p>
-        <p>Количество выполненных: {completedTodos}</p>
+      <div className="TodoList__explain">
+        <p>All: {todos.length}</p>
+        <p>Done: {completedTodos}</p>
       </div>
     </>
   );

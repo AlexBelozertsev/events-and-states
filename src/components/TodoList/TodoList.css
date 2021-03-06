@@ -5,7 +5,7 @@
   padding: 11px;
   outline: 1px solid black;
 }
-.TodoList__item {
+.item {
   display: flex;
   justify-content: space-between;
   font-weight: 500;
@@ -13,13 +13,33 @@
   line-height: 1.45;
   border-bottom: 1px solid teal;
 }
-.TodoList__bottom {
-  text-align: center;
+.item__completed {
+  composes: item;
+  text-decoration: line-through;
+  color: gray;
+}
+.TodoList__button {
   width: 26px;
+  padding: 0;
   border-radius: 50%;
+  border: none;
+  outline: none;
   font-weight: 700;
   background-color: tomato;
   color: white;
   cursor: pointer;
   box-shadow: 1px 2px 2px 0 rgb(0 0 0 / 0.5);
+}
+.TodoList__explain {
+  display: flex;
+  justify-content: space-evenly;
+  font-weight: 500;
+  width: 400px;
+  padding: 11px;
+  margin-top: -40px;
+  margin-bottom: 40px;
+  outline: 1px solid black;
+}
+.TodoList__explain p {
+  margin: 0;
 }

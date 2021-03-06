@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames'; // пакет для составления динамических классов в компоненте
 import './ColorPicker.css';
 
 // const ColorPicker = ({ options }) => {
@@ -30,12 +31,17 @@ class ColorPicker extends Component {
   };
 
   makeOptionClassName = index => {
-    const optionClasses = ['ColorPicker__option'];
+    // const optionClasses = ['ColorPicker__option'];
 
-    if (index === this.state.activeOptionsIdx) {
-      optionClasses.push('ColorPicker__option--active');
-    }
-    return optionClasses.join(' ');
+    // if (index === this.state.activeOptionsIdx) {
+    //   optionClasses.push('ColorPicker__option--active');
+    // }
+    // return optionClasses.join(' ');
+    // --- with library classnames it's simler ---
+    return classNames('ColorPicker__option', {
+      'ColorPicker__option--active': index === this.state.activeOptionsIdx,
+    });
+    // first arg ('ColorPicker__option') - base, obj arg ('ColorPicker__option--active') - calculated by condition
   };
 
   render() {
