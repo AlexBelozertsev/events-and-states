@@ -9,6 +9,7 @@ import TodoList from './components/TodoList';
 import Form from './components/Form/Form';
 import TodoEditor from './components/TodoEditor';
 import TodoFilter from './components/TodoFilter';
+import Modal from './components/Modal';
 
 import initialTodos from './todos.json';
 
@@ -25,7 +26,30 @@ class App extends Component {
   state = {
     todos: initialTodos,
     filter: '',
+    showModal: false,
   };
+
+  // ------------------------------------------------------
+  componentDidMount() {
+    // console.log('component Did Mount');
+    // вытягиваю из локала состояние предыдущей сессии
+    const prevTodos = JSON.parse(localStorage.getItem('todos'));
+    // console.log(prevTodos);
+    // проверка на null перед рендером локала
+    if (prevTodos) {
+      this.setState({ todos: prevTodos });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    // console.log('prevState', prevState);
+    // console.log('state', this.state);
+    if (this.state.todos !== prevState.todos) {
+      // console.log('update state');
+      // при каждом обновлении this.state.todos это будет записываться в локал
+      localStorage.setItem('todos', JSON.stringify(this.state.todos));
+    }
+  }
+  // ------------------------------------------------------
 
   deleteTodo = todoId => {
     this.setState(prevState => ({
@@ -75,12 +99,30 @@ class App extends Component {
     );
   };
 
+  //==================Modal==================
+  //инверсия состояния
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
+
   render() {
-    const { filter } = this.state;
+    const { filter, showModal } = this.state;
     const filteredTodo = this.getFilteredTodo();
 
     return (
       <Container>
+        <button type="button" onClick={this.toggleModal}>
+          Open
+        </button>
+        {showModal && (
+          <Modal>
+            <button type="button" onClick={this.toggleModal}>
+              Close
+            </button>
+          </Modal>
+        )}
         <Counter initialValue={10} />
         <Dropdown />
         <ColorPicker options={colorPickerOptions} />
