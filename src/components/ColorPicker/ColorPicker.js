@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classNames from 'classnames'; // пакет для составления динамических классов в компоненте
 import './ColorPicker.css';
 
@@ -21,7 +21,7 @@ import './ColorPicker.css';
 //   );
 // };
 
-class ColorPicker extends Component {
+class ColorPicker extends PureComponent {
   state = {
     activeOptionsIdx: 0,
   };
@@ -41,7 +41,7 @@ class ColorPicker extends Component {
     return classNames('ColorPicker__option', {
       'ColorPicker__option--active': index === this.state.activeOptionsIdx,
     });
-    // first arg ('ColorPicker__option') - base, obj arg ('ColorPicker__option--active') - calculated by condition
+    // first arg ('ColorPicker__option') -> base, obj arg ('ColorPicker__option--active') -> calculated by condition
   };
 
   render() {

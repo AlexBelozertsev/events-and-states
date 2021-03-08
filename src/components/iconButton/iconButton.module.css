@@ -1,0 +1,19 @@
+.IconButton {
+  margin: 0;
+  padding: 5px;
+  width: auto;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font: inherit;
+  background-color: tomato;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.IconButton:hover {
+  background-color: teal;
+}

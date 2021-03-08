@@ -10,8 +10,14 @@ import Form from './components/Form/Form';
 import TodoEditor from './components/TodoEditor';
 import TodoFilter from './components/TodoFilter';
 import Modal from './components/Modal';
+import Clock from './components/Clock';
+import Tabs from './components/Tabs/Tabs';
+import IconButton from './components/iconButton';
 
+import { ReactComponent as DeleteIcon } from './icons/delete.svg';
+import { ReactComponent as AddIcon } from './icons/add.svg';
 import initialTodos from './todos.json';
+import myTabs from './tabs.json';
 
 const colorPickerOptions = [
   { label: 'red', color: '#F44336' },
@@ -89,6 +95,7 @@ class App extends Component {
       completed: false,
     };
     this.setState(prevState => ({ todos: [...prevState.todos, todo] }));
+    this.toggleModal();
   };
 
   getFilteredTodo = () => {
@@ -113,14 +120,17 @@ class App extends Component {
 
     return (
       <Container>
-        <button type="button" onClick={this.toggleModal}>
+        {/* <button type="button" onClick={this.toggleModal}>
           Open
-        </button>
+        </button> */}
         {showModal && (
-          <Modal>
-            <button type="button" onClick={this.toggleModal}>
+          <Modal onClose={this.toggleModal}>
+            {/* <Tabs items={myTabs} /> */}
+            {/* <Clock /> */}
+            <TodoEditor onSubmit={this.TodoEditorSubmitHandler} />
+            {/* <button type="button" onClick={this.toggleModal}>
               Close
-            </button>
+            </button> */}
           </Modal>
         )}
         <Counter initialValue={10} />
@@ -128,7 +138,9 @@ class App extends Component {
         <ColorPicker options={colorPickerOptions} />
         <Form onSubmit={this.formSubmitHandler} />
         <TodoFilter value={filter} onChange={this.filterChange} />
-        <TodoEditor onSubmit={this.TodoEditorSubmitHandler} />
+        <IconButton onClick={this.toggleModal} aria-label="Add new todo">
+          <AddIcon fill="white" width="20" height="20" />
+        </IconButton>
         <TodoList
           todos={filteredTodo}
           onDeliteTodo={this.deleteTodo}
